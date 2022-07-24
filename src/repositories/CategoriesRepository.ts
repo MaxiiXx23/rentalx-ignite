@@ -1,4 +1,8 @@
 import { Category } from "../model/Category";
+import {
+    ICategoriesRepository,
+    ICreateCategoryDTO,
+} from "./ICategoriesRepository";
 /** 
     * Repositories simulam a manipulção de uma tabela em um banco de dados relacional,
     assim tirando a resposabilidade da ROTA fazer isso.
@@ -6,12 +10,7 @@ import { Category } from "../model/Category";
         uma class e outra;
 */
 
-interface ICreateCategoryDTO {
-    name: string;
-    description: string;
-}
-
-class CategoriesRepository {
+class CategoriesRepository implements ICategoriesRepository {
     private categories: Category[];
     constructor() {
         this.categories = [];
