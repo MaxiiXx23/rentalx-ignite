@@ -1,8 +1,8 @@
-import { Category } from "../model/Category";
+import { Category } from "../../model/Category";
 import {
     ICategoriesRepository,
     ICreateCategoryDTO,
-} from "./ICategoriesRepository";
+} from "../ICategoriesRepository";
 /** 
     * Repositories simulam a manipulção de uma tabela em um banco de dados relacional,
     assim tirando a resposabilidade da ROTA fazer isso.
