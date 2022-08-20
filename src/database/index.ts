@@ -1,5 +1,7 @@
 import { DataSource } from "typeorm";
 
+import { CreateCategories1661021164174 } from "./migrations/1661021164174-CreateCategories";
+
 const dataSourse = new DataSource({
     type: "postgres",
     host: "localhost",
@@ -8,7 +10,8 @@ const dataSourse = new DataSource({
     password: "ignite",
     database: "rentx",
     entities: [],
-    migrations: [],
+    migrations: [CreateCategories1661021164174],
+    migrationsTableName: "custom_migration_table",
 });
 
 export function createConnection(host = "database"): Promise<DataSource> {
