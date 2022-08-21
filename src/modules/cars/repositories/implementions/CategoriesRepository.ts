@@ -1,4 +1,7 @@
-import { Category } from "../../model/Category";
+import { Repository } from "typeorm";
+
+import { dataSource } from "../../../../database/index";
+import { Category } from "../../entities/Category";
 import {
     ICategoriesRepository,
     ICreateCategoryDTO,
@@ -11,37 +14,26 @@ import {
 */
 
 class CategoriesRepository implements ICategoriesRepository {
-    private categories: Category[];
+    private repository: Repository<Category>;
     // here I used Singleton Pattern.
     // eslint-disable-next-line no-use-before-define
-    private static INSTACE: CategoriesRepository;
-
     constructor() {
-        this.categories = [];
+        this.repository = dataSource.getRepository(Category);
     }
 
-    public static getInstace(): CategoriesRepository {
-        if (!CategoriesRepository.INSTACE) {
-            CategoriesRepository.INSTACE = new CategoriesRepository();
-        }
-        return CategoriesRepository.INSTACE;
-    }
-    create({ name, description }: ICreateCategoryDTO): void {
-        const category = new Category();
-        Object.assign(category, {
+    async create({ name, description }: ICreateCategoryDTO): Promise<void> {
+        const category = this.repository.create({
             name,
             description,
-            create_at: new Date(),
         });
-        this.categories.push(category);
+        await this.repository.save(category);
     }
-    list(): Category[] {
-        return this.categories;
+    async list(): Promise<Category[]> {
+        const categories = await this.repository.find();
+        return categories;
     }
-    findByName(name: string): Category {
-        const category = this.categories.find(
-            (category) => category.name === name
-        );
+    async findByName(name: string): Promise<Category> {
+        const category = await this.repository.findOneBy({ name });
         return category;
     }
 }
