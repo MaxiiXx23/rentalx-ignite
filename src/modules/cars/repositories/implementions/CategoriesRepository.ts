@@ -15,8 +15,6 @@ import {
 
 class CategoriesRepository implements ICategoriesRepository {
     private repository: Repository<Category>;
-    // here I used Singleton Pattern.
-    // eslint-disable-next-line no-use-before-define
     constructor() {
         this.repository = dataSource.getRepository(Category);
     }
