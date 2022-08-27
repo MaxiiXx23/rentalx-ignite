@@ -3,7 +3,7 @@ import { User } from "../entities/User";
 
 interface IUserRepository {
     create(data: ICreateUserDTO): Promise<void>;
-    findUserByUsername(name: string): Promise<User>;
+    findByEmail(email: string): Promise<User>;
 }
 
 export { IUserRepository };
