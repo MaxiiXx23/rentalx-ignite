@@ -1,6 +1,7 @@
 import express from "express";
 import "reflect-metadata";
 import swaggerUi from "swagger-ui-express";
+import "dotenv/config";
 
 import { createConnection } from "./database";
 import "./shared/container";
