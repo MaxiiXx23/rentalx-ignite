@@ -2,13 +2,14 @@ import express from "express";
 import "express-async-errors";
 import "reflect-metadata";
 import swaggerUi from "swagger-ui-express";
+
 import "dotenv/config";
 
-import { createConnection } from "./database";
-import "./shared/container";
+import swaggerFile from "../../../swagger.json";
+import { createConnection } from "../typeorm";
+import "../../container";
 import { errorTokenTratament } from "./middlewares/errorTokenTratament";
 import { router } from "./routes";
-import swaggerFile from "./swagger.json";
 
 createConnection();
 const app = express();

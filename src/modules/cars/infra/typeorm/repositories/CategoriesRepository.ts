@@ -1,11 +1,12 @@
 import { Repository } from "typeorm";
 
-import { dataSource } from "../../../../database/index";
-import { Category } from "../../entities/Category";
+import { dataSource } from "../../../../../shared/infra/typeorm";
 import {
     ICategoriesRepository,
     ICreateCategoryDTO,
-} from "../ICategoriesRepository";
+} from "../../../repositories/ICategoriesRepository";
+import { Category } from "../entities/Category";
+
 /** 
     * Repositories simulam a manipulção de uma tabela em um banco de dados relacional,
     assim tirando a resposabilidade da ROTA fazer isso.
