@@ -38,6 +38,33 @@ class CarsRepository implements ICarsRepository {
         const car = await this.repository.findOneBy({ license_plate });
         return car;
     }
+    async findAvailable(
+        category_id?: string,
+        brand?: string,
+        name?: string
+    ): Promise<Car[]> {
+        // aqui fazemos um QueryBuilder condicional para
+        // realizar um consulta e retorno de lista personalizado
+        const carsQuery = this.repository
+            .createQueryBuilder("c")
+            .where("available = :available", { available: true });
+
+        if (category_id) {
+            // aqui o andWhere nos permite 'concatenar' os where tanto do carsQuery quanto agora
+            carsQuery.andWhere("c.category_id = :category_id", { category_id });
+        }
+
+        if (brand) {
+            carsQuery.andWhere("c.brand = :brand", { brand });
+        }
+
+        if (name) {
+            carsQuery.andWhere("c.name = :name", { name });
+        }
+        // o getMany nos traz vários registros através do carsQuery
+        const cars = await carsQuery.getMany();
+        return cars;
+    }
 }
 
 export { CarsRepository };
