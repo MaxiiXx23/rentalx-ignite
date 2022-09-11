@@ -5,6 +5,7 @@ import { Car } from "../../../modules/cars/infra/typeorm/entities/Car";
 import { CarImage } from "../../../modules/cars/infra/typeorm/entities/CarImage";
 import { Category } from "../../../modules/cars/infra/typeorm/entities/Category";
 import { Specification } from "../../../modules/cars/infra/typeorm/entities/Specification";
+import { Rental } from "../../../modules/rentals/infra/typeorm/entities/Rental";
 import { CreateCategories1661021164174 } from "./migrations/1661021164174-CreateCategories";
 import { CreateSpecificion1661114048624 } from "./migrations/1661114048624-CreateSpecificion";
 import { CreateUsers1661297100863 } from "./migrations/1661297100863-CreateUsers";
@@ -13,6 +14,7 @@ import { AlterUserAddAvatar1661710996679 } from "./migrations/1661710996679-Alte
 import { CreateCars1662495471014 } from "./migrations/1662495471014-CreateCars";
 import { CreateSpecifitionsCars1662679403786 } from "./migrations/1662679403786-CreateSpecifitionsCars";
 import { CreateCarImages1662842921078 } from "./migrations/1662842921078-CreateCarImages";
+import { CreateNewRentalsTable1662918053980 } from "./migrations/1662918053980-CreateNewRentalsTable";
 
 const dataSource = new DataSource({
     type: "postgres",
@@ -21,7 +23,7 @@ const dataSource = new DataSource({
     username: "docker",
     password: "ignite",
     database: "rentx",
-    entities: [Category, Specification, User, Car, CarImage],
+    entities: [Category, Specification, User, Car, CarImage, Rental],
     migrations: [
         CreateCategories1661021164174,
         CreateSpecificion1661114048624,
@@ -31,6 +33,7 @@ const dataSource = new DataSource({
         CreateCars1662495471014,
         CreateSpecifitionsCars1662679403786,
         CreateCarImages1662842921078,
+        CreateNewRentalsTable1662918053980,
     ],
     migrationsTableName: "custom_migration_table",
 });
