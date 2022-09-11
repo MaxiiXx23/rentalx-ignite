@@ -47,7 +47,7 @@
 # Aluguel de carro #
 
 **Requisitos funcionais**
-- Deve ser possível cadastrar um aluguel.
+- Deve ser possível cadastrar um aluguel..
 
 
 **Regras de Negócio**
