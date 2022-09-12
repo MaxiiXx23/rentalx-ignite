@@ -38,7 +38,16 @@ const dataSource = new DataSource({
     migrationsTableName: "custom_migration_table",
 });
 
-export function createConnection(host = "database"): Promise<DataSource> {
+export function createConnection(
+    host = "database_ignite"
+): Promise<DataSource> {
+    // quando uso o script test, eu 'seto' a NODE_ENV para usar o BD de teste para os teste
+    if (process.env.NODE_ENV === "test") {
+        return dataSource
+            .setOptions({ host, database: "rentx_test" })
+            .initialize();
+    }
     return dataSource.setOptions({ host }).initialize();
 }
+
 export { dataSource };
