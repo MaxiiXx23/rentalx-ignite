@@ -1,4 +1,4 @@
-import { Repository } from "typeorm";
+import { IsNull, Repository } from "typeorm";
 
 import { dataSource } from "../../../../../shared/infra/typeorm";
 import { ICreateRentalDTO } from "../../dtos/ICreateRentalDTO";
@@ -13,26 +13,43 @@ class RentalsRepository implements IRentalsRepository {
     }
 
     async findOpenRentalByCar(car_id: string): Promise<Rental> {
-        const openByCar = await this.repository.findOneBy({ car_id });
+        const openByCar = await this.repository.findOne({
+            where: { car_id, end_date: IsNull() },
+        });
+
         return openByCar;
     }
 
     async findOpenRentalByUser(user_id: string): Promise<Rental> {
-        const openByUser = await this.repository.findOneBy({ user_id });
+        // usar IsNull em vez de null em um where
+        const openByUser = await this.repository.findOne({
+            where: { user_id, end_date: IsNull() },
+        });
         return openByUser;
     }
 
     async create({
         car_id,
         user_id,
-        expected_return_date,
+        expect_return_date,
+        id,
+        end_date,
+        total,
     }: ICreateRentalDTO): Promise<Rental> {
         const rental = this.repository.create({
             car_id,
             user_id,
-            expect_return_date: expected_return_date,
+            expect_return_date,
+            id,
+            end_date,
+            total,
         });
         await this.repository.save(rental);
+        return rental;
+    }
+
+    async findById(id: string): Promise<Rental> {
+        const rental = await this.repository.findOneBy({ id });
         return rental;
     }
 }
