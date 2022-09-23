@@ -30,21 +30,20 @@ describe("Create Category", () => {
     });
 
     it("should not be able to create a new category with same name", async () => {
-        expect(async () => {
-            const category = {
-                name: "Category Test",
-                description: "Category description test.",
-            };
-            await createCategoryUseCase.execute({
+        const category = {
+            name: "Category Test",
+            description: "Category description test.",
+        };
+        await createCategoryUseCase.execute({
+            name: category.name,
+            description: category.description,
+        });
+        await expect(
+            createCategoryUseCase.execute({
                 name: category.name,
                 description: category.description,
-            });
-
-            await createCategoryUseCase.execute({
-                name: category.name,
-                description: category.description,
-            });
+            })
             // caso eu tivesse usado o AppError, eu deveria especifica-lo aqui
-        }).rejects.toBeInstanceOf(Error);
+        ).rejects.toEqual(new Error("Category already exists."));
     });
 });
