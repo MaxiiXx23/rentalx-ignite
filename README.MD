@@ -49,6 +49,7 @@
 
 # Aluguel de carro #
 
+
 **Requisitos funcionais**
 - Deve ser possível cadastrar um aluguel..
 
@@ -58,3 +59,14 @@
 - Não deve possível cadastrar um novo aluguel caso já exista um aberto para o mesmo usuário.
 - Não deve possível cadastrar um novo aluguel caso já exista um aberto para o mesmo carro.
 - O usuário deve estar logado na aplicação.
+
+# Recuperação de senha #
+**RF**
+- Deve ser possível o usuário recuperar a senha informando o e-mail.
+- O usuário deve receber um e-mail com o passo a passo para a recuperação de senha.
+- O usuário deve conseguir inserir uma nova senha.
+
+**RN**
+- O usuário deve informar uma nova senha.
+- O link enviado para recuperação de senha deve expirar em 3 horas.
+
