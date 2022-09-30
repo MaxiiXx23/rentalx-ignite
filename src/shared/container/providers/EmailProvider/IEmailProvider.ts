@@ -1,5 +1,10 @@
 interface IEmailProvider {
-    sendEmail(to: string, subject: string, body: string): Promise<void>;
+    sendEmail(
+        to: string,
+        subject: string,
+        variables: any,
+        path: string
+    ): Promise<void>;
 }
 
 export { IEmailProvider };

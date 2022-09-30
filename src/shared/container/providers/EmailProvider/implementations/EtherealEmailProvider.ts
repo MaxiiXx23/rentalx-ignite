@@ -1,3 +1,5 @@
+import fs from "fs";
+import handlebars from "handlebars";
 import nodemail, { Transporter } from "nodemailer";
 import { injectable } from "tsyringe";
 
@@ -25,16 +27,28 @@ class EtherealEmailProvider implements IEmailProvider {
             .catch((err) => console.error(err));
     }
 
-    async sendEmail(to: string, subject: string, body: string): Promise<void> {
+    async sendEmail(
+        to: string,
+        subject: string,
+        variables: any,
+        path: string
+    ): Promise<void> {
+        const templateFileContent = fs.readFileSync(path).toString("utf-8");
+
+        // aqui transformo o arquivo lido para formatado 'handlebars'
+        const templateParse = handlebars.compile(templateFileContent);
+
+        // aqui passo as variávies que serão inseridas no body
+        const templateHTML = templateParse(variables);
+
         const message = await this.client.sendMail({
             to,
             from: "Rentx <noreplay@rentx.com.br>",
             subject,
-            text: body,
-            html: body,
+            html: templateHTML,
         });
+
         console.log("Message sent: %s", message.messageId);
-        // Preview only available when sending through an Ethereal account
         console.log("Preview URL: %s", nodemail.getTestMessageUrl(message));
     }
 }
