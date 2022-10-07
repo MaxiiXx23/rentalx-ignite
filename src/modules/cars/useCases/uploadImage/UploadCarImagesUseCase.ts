@@ -1,7 +1,6 @@
 import { inject, injectable } from "tsyringe";
 
 import { IStorageProvider } from "../../../../shared/container/providers/storageProvider/IStorageProvider";
-import { deleteFile } from "../../../../utils/file";
 import { ICarsImagesRepository } from "../../repositories/ICarsImagesRepository";
 
 interface IRequest {
